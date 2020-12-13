@@ -1,8 +1,6 @@
 import pytest
 from django.urls import resolve, reverse
-from pytest_django.asserts import assertContains
 
-from ..views import ProductDetailView, ProductListView
 from .factories import ProductFactory
 
 pytestmark = pytest.mark.django_db
@@ -42,22 +40,3 @@ class TestProductDetailView:
         url = reverse("products:detail", kwargs={"slug": product.slug})
         response = client.get(url)
         assert response.status_code == 200
-
-
-# def test_product_list_contains_2_products(rf):
-#     product1 = ProductFactory(is_available=True)
-#     product2 = ProductFactory(is_available=True)
-#     request = rf.get(reverse("products:list"))
-#     response = ProductListView.as_view()(request)
-#     assert response.status_code == 200
-#     assertContains(response, product1.name)
-#     assertContains(response, product2.name)
-
-
-# def test_product_list_pagination(client):
-#     for _ in range(10):
-#         ProductFactory(is_available=True)
-
-#     response = client.get(reverse("products:list"))
-#     assert response.status_code == 200
-#     assert response.context["product_list"].count() == 6
