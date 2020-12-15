@@ -30,8 +30,8 @@ class TestProductModel:
         ProductFactory(is_available=True)
         ProductFactory(is_available=False)
 
-        assert len(Product.objects.all()) == 2
-        assert len(Product.available.all()) == 1
+        assert Product.objects.all().count() == 2
+        assert Product.available.all().count() == 1
         assertQuerysetEqual(
             Product.available.all(),
             Product.objects.filter(is_available=True),
