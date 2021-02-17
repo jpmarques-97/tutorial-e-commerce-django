@@ -2,6 +2,7 @@ import pytest
 from django.conf import settings
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.http import HttpRequest
+
 from products.tests.factories import ProductFactory
 
 from ..cart import Cart
@@ -156,3 +157,9 @@ def test_cant_add_more_than_max_items(product, cart):
 
     cart.add(product, 1)
     assert len(cart) == settings.CART_ITEM_MAX_QUANTITY
+
+
+def test_clear_cart(cart, session):
+    assert settings.CART_SESSION_ID in session
+    cart.clear()
+    assert settings.CART_SESSION_ID not in session
