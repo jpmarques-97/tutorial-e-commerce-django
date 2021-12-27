@@ -48,7 +48,7 @@ class Cart:
         else:
             self.cart[product_id]["quantity"] += quantity
 
-        self.cart[product_id]["quantity"] = min(20, self.cart[product_id]["quantity"])
+        self.cart[product_id]["quantity"] = min(settings.CART_ITEM_MAX_QUANTITY, self.cart[product_id]["quantity"])
 
         self.save()
 

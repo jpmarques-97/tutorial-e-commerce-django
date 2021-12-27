@@ -156,3 +156,14 @@ def test_cant_add_more_than_max_items(product, cart):
 
     cart.add(product, 1)
     assert len(cart) == settings.CART_ITEM_MAX_QUANTITY
+
+
+def test_cant_add_more_than_max_items_with_different_CART_ITEM_MAX_QUANTITY(product, cart):
+
+    settings.CART_ITEM_MAX_QUANTITY = 10
+    cart.add(product, settings.CART_ITEM_MAX_QUANTITY + 10)
+    assert len(cart) == 10
+
+    settings.CART_ITEM_MAX_QUANTITY = 100
+    cart.add(product, settings.CART_ITEM_MAX_QUANTITY + 10)
+    assert len(cart) == 100
